@@ -1,208 +1,89 @@
 <!--
   ============================================================
   PORTFOLIO WEBSITE — MD SYFUL ISLAM
+  Google Sheets-Powered Version
   ============================================================
 
-  WHAT IS THIS FILE?
-  ------------------
-  This is a single HTML file that creates a complete, professional
-  portfolio website. You can open it directly in any web browser
-  (Chrome, Firefox, Edge, Safari) just by double-clicking the file.
-  No internet hosting, server, or special software is required.
+  HOW TO UPDATE YOUR PORTFOLIO (NO CODING NEEDED)
+  ------------------------------------------------
+  All your content is stored in your Google Sheet.
+  To update anything:
 
-  HOW IS IT STRUCTURED?
-  ----------------------
-  A web page is made of three languages working together:
+  1. Open your Google Sheet
+  2. Go to the relevant tab (e.g. Experience, Certifications)
+  3. Add, edit, or delete rows
+  4. Your live portfolio updates automatically — nothing else needed!
 
-  1. HTML  → The CONTENT and STRUCTURE
-             (text, headings, images, links, sections)
-
-  2. CSS   → The DESIGN and STYLE
-             (colours, fonts, spacing, layout, animations)
-             Found inside the <style> ... </style> block below.
-
-  3. JavaScript → The BEHAVIOUR and INTERACTIVITY
-             (what happens when you scroll, click, or move the mouse)
-             Found inside the <script> ... </script> block at the bottom.
-
-  HOW TO EDIT YOUR CONTENT
-  -------------------------
-  To change any text (your name, job titles, descriptions, dates),
-  open this file in a plain text editor such as:
-    - Notepad (Windows)
-    - TextEdit (Mac — set to plain text mode)
-    - VS Code (free, recommended)
-  Then search for the text you want to change, edit it, save the file,
-  and refresh your browser. That is it!
-
-  COLOUR GUIDE (if you want to change colours)
-  --------------------------------------------
-  All colours are defined near the top of the CSS section as
-  named "variables". For example:
-    --amber: #C8601A   <- This orange-amber is the main accent colour
-    --teal:  #1E5F6B   <- This dark teal is used for the hero background
-  You only need to change a colour in ONE place and it updates everywhere.
-
-  SECTIONS IN THIS FILE (in order)
+  YOUR SHEET IS ALREADY CONNECTED ✓
   ----------------------------------
-  1. <head>     - Page settings (title, fonts, styles)
-  2. <nav>      - Fixed navigation bar at the top
-  3. #hero      - Opening full-screen introduction panel
-  4. #about     - Personal bio and skills overview
-  5. #experience - Work history timeline
-  6. #projects  - Social innovation and research projects
-  7. #education - Degrees and certifications
-  8. #contact   - Contact information
-  9. <footer>   - Bottom bar with name
-  10. <script>  - JavaScript for interactive behaviour
+  Sheet URL: https://docs.google.com/spreadsheets/d/e/
+  2PACX-1vQdFUwyTzx-Y8rnGFk-hKZOee9yxV16PoFSZSu-Pg
+  IksfKIEvzUutGsK5OZBwBzYZHiD73spTrqiWOi/pub
+
+  IF YOU EVER CREATE A NEW TAB:
+  → Get the new tab's GID from the sheet URL (the number
+    after #gid=), then add it to the TABS object in the
+    script section of this file.
+
+  YOUR GOOGLE SHEET TABS (one tab per section)
+  ---------------------------------------------
+  Tab 1: Experience   → columns: title, org, period, bullets
+  Tab 2: Education    → columns: badge, degree, institution, years, grade, honours
+  Tab 3: Certifications → columns: name, issuer
+  Tab 4: Projects     → columns: icon, title, org, description, impact
+  Tab 5: Skills       → columns: category, skill
+  Tab 6: Stats        → columns: number, label
+  Tab 7: Contact      → columns: key, value (email, phone, linkedin, github, location)
+
   ============================================================
 -->
 
 <!DOCTYPE html>
-<!-- DOCTYPE tells the browser this is a modern HTML5 webpage -->
-
 <html lang="en">
-<!-- <html> is the root (outermost wrapper) of the entire webpage.
-     lang="en" tells the browser (and screen readers) the page is in English. -->
 
 <head>
-  <!-- ============================================================
-       HEAD SECTION
-       Everything inside <head> is behind-the-scenes setup.
-       It does NOT appear visually on the page itself.
-       ============================================================ -->
-
   <meta charset="UTF-8">
-  <!-- UTF-8 is the character encoding. It ensures special characters
-       like accented letters, Bangla script, and emoji display correctly. -->
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- This is CRITICAL for mobile responsiveness.
-       It tells mobile browsers NOT to zoom out and show a tiny desktop view.
-       Instead, the page should match the phone's actual screen width. -->
-
   <title>Md Syful Islam — Curriculum &amp; Capacity Development</title>
-  <!-- This text appears in the browser tab at the top of the window.
-       Change this to update the tab title. -->
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <!-- This speeds up font loading by opening an early connection to Google Fonts. -->
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-  <!--
-    This loads three fonts from Google Fonts (free, requires internet):
-    - "Playfair Display" : Elegant serif font used for headings and the name
-    - "DM Sans"          : Clean, modern font used for body text and labels
-    - "DM Serif Display" : A softer serif used for pull-quotes and intro paragraphs
-    If the user is offline, the browser falls back to a default system font.
-  -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet">
 
   <style>
-    /* ============================================================
-       CSS (CASCADING STYLE SHEETS) - THE DESIGN SECTION
-       ============================================================
-
-       CSS rules follow this pattern:
-         selector { property: value; }
-
-       - selector  : WHAT to style (e.g. "body", "nav", ".hero-name")
-       - property  : WHAT aspect to change (e.g. "color", "font-size")
-       - value     : WHAT to set it to (e.g. "red", "16px", "bold")
-
-       A dot (.) before a name means it is a "class" - a reusable style
-       applied to multiple elements. Example: .section-title
-       A hash (#) means it is an "ID" - applied to one unique element.
-       Example: #hero
-
-       Comments inside CSS look like this:
-    ============================================================ */
-
-
-    /* ============================================================
-       GLOBAL RESET
-       ============================================================
-       By default, different browsers add different spacing around
-       elements. This reset removes all that default spacing so the
-       design looks consistent in every browser.
-       "box-sizing: border-box" makes width/height calculations
-       include padding, which prevents unexpected size overflows.
-    ============================================================ */
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-
-    /* ============================================================
-       COLOUR PALETTE (CSS VARIABLES / CUSTOM PROPERTIES)
-       ============================================================
-       These are like named colour swatches. Instead of typing
-       "#C8601A" in many different places, you simply write
-       "var(--amber)" and it uses the colour defined here.
-
-       TO CHANGE THE COLOUR SCHEME: Edit the hex codes below.
-       A hex code is a 6-digit colour code like #C8601A.
-       You can pick colours at: https://coolors.co
-    ============================================================ */
     :root {
-      --cream:       #F5F0E8;  /* Warm off-white - used for section backgrounds */
-      --warm-white:  #FDFAF4;  /* Near-white - the main page background colour */
-      --ink:         #1A1612;  /* Very dark brown - main body text colour */
-      --ink-light:   #3D3530;  /* Slightly lighter dark brown - secondary text */
-      --amber:       #C8601A;  /* Main accent colour - orange-amber for highlights */
-      --amber-light: #E8894A;  /* Lighter amber - for hover states and subtle accents */
-      --teal:        #1E5F6B;  /* Deep teal - hero background and badges */
-      --teal-light:  #2E8A9A;  /* Lighter teal - available for future use */
-      --gold:        #C4993A;  /* Gold tone - available for awards/badges */
-      --muted:       #8A7E72;  /* Mid-grey brown - for dates, labels, captions */
-      --border:      #D9CFC2;  /* Light warm grey - for dividing lines and borders */
+      --cream: #F5F0E8;
+      --warm-white: #FDFAF4;
+      --ink: #1A1612;
+      --ink-light: #3D3530;
+      --amber: #C8601A;
+      --amber-light: #E8894A;
+      --teal: #1E5F6B;
+      --teal-light: #2E8A9A;
+      --gold: #C4993A;
+      --muted: #8A7E72;
+      --border: #D9CFC2;
     }
 
-
-    /* ============================================================
-       SMOOTH SCROLLING
-       ============================================================
-       When a nav link is clicked (e.g. "About"), instead of jumping
-       instantly to that section, the page scrolls smoothly down.
-    ============================================================ */
     html {
       scroll-behavior: smooth;
     }
 
-
-    /* ============================================================
-       BODY - BASE PAGE SETTINGS
-       ============================================================
-       Sets the default font, background colour, and text colour
-       for the entire page. All other elements inherit these unless
-       they override with their own settings.
-       "overflow-x: hidden" prevents horizontal scrollbars from
-       appearing if any element accidentally overflows the page width.
-    ============================================================ */
     body {
-      font-family: 'DM Sans', sans-serif; /* Primary font for all body text */
-      background: var(--warm-white);       /* Page background colour */
-      color: var(--ink);                   /* Default text colour */
-      overflow-x: hidden;                  /* No horizontal scroll bar */
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--ink);
+      overflow-x: hidden;
     }
 
-
-    /* ============================================================
-       SUBTLE PAPER TEXTURE OVERLAY
-       ============================================================
-       This places a very faint grain/noise texture over the entire
-       page using a mathematical SVG pattern embedded directly in CSS.
-       It adds a tactile, editorial "printed paper" feel.
-
-       "position: fixed" - stays in place as you scroll.
-       "inset: 0"        - covers the full screen (all four sides).
-       "pointer-events: none" - it is purely decorative; you can
-                          still click through it as normal.
-       "z-index: 1000"   - places it above all other content visually,
-                          but since it is nearly transparent it does
-                          not obscure anything.
-    ============================================================ */
     body::before {
       content: '';
       position: fixed;
@@ -213,213 +94,174 @@
       opacity: 0.4;
     }
 
-
-    /* ============================================================
-       NAVIGATION BAR
-       ============================================================
-       "position: fixed" keeps the nav pinned to the top of the
-       screen even as you scroll down the page.
-       "backdrop-filter: blur" creates a frosted-glass effect -
-       content behind the nav appears softly blurred.
-       "z-index: 900" makes the nav sit on top of page content
-       (but below the texture at 1000).
-    ============================================================ */
+    /* NAV */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;             /* Spans full width at the very top */
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 900;
-      display: flex;                          /* Places logo and links side by side */
-      align-items: center;                    /* Vertically centres both */
-      justify-content: space-between;         /* Logo pushed to left, links to right */
-      padding: 1.2rem 4rem;                   /* Inner spacing (top/bottom sides, left/right sides) */
-      background: rgba(253, 250, 244, 0.88);  /* Translucent warm-white */
-      backdrop-filter: blur(12px);            /* Frosted-glass blur effect */
-      border-bottom: 1px solid var(--border); /* Thin line at the bottom */
-      transition: padding 0.3s ease;          /* Smooth animation when nav shrinks on scroll */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(253, 250, 244, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s ease;
     }
 
-    /* When the user scrolls down, JavaScript adds "scrolled" to the nav.
-       This makes the nav slightly shorter to take up less screen space. */
     nav.scrolled {
-      padding: 0.8rem 4rem; /* Reduced top/bottom padding when scrolled */
+      padding: 0.8rem 4rem;
     }
 
-    /* The name/logo text in the top-left corner of the nav */
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-weight: 900;
       font-size: 1.1rem;
       color: var(--amber);
-      letter-spacing: -0.02em;   /* Slightly tightened letter spacing for elegance */
-      text-decoration: none;      /* Remove the default underline from links */
+      letter-spacing: -0.02em;
+      text-decoration: none;
     }
 
-    /* The horizontal list of page links (About, Experience, etc.) */
     .nav-links {
-      display: flex;           /* Arrange links in a horizontal row */
-      gap: 2.5rem;             /* Space between each link */
-      list-style: none;        /* Remove bullet points from the HTML list */
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
     }
 
-    /* Each individual navigation link */
     .nav-links a {
       font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 0.12em;       /* Spread-out letters for a refined label look */
-      text-transform: uppercase;    /* Converts text to ALL CAPS automatically */
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--ink-light);
-      text-decoration: none;        /* No underline */
-      transition: color 0.2s;       /* Colour changes smoothly over 0.2 seconds */
-      position: relative;           /* Required so the animated underline below can be positioned */
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
     }
 
-    /* Animated underline effect on nav links.
-       "::after" is a CSS pseudo-element - it creates a fake element
-       after the link text. It starts with zero width (invisible)
-       and grows to full width when the link is hovered. */
     .nav-links a::after {
-      content: '';                        /* Required - pseudo-elements need this */
+      content: '';
       position: absolute;
-      bottom: -3px; left: 0;             /* Positioned just below the link text */
-      width: 0; height: 1.5px;           /* Starts at zero width (invisible) */
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
       background: var(--amber);
-      transition: width 0.3s ease;       /* Width grows smoothly on hover */
+      transition: width 0.3s ease;
     }
 
-    .nav-links a:hover { color: var(--amber); }         /* Text turns amber on hover */
-    .nav-links a:hover::after { width: 100%; }           /* Underline grows to full width */
+    .nav-links a:hover {
+      color: var(--amber);
+    }
 
-    /* The hamburger button (three horizontal lines).
-       Hidden on desktop with "display: none".
-       Shown on mobile via the media query section further below. */
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
     .nav-toggle {
-      display: none;            /* Hidden on desktop */
+      display: none;
       flex-direction: column;
       gap: 5px;
-      cursor: pointer;          /* Shows a pointing hand cursor on hover */
+      cursor: pointer;
       padding: 4px;
     }
 
-    /* Each of the three lines in the hamburger icon */
     .nav-toggle span {
       display: block;
-      width: 24px; height: 2px;
+      width: 24px;
+      height: 2px;
       background: var(--ink);
       transition: all 0.3s ease;
     }
 
-
-    /* ============================================================
-       HERO SECTION - Full-screen opening panel
-       ============================================================
-       "min-height: 100vh" = at least 100% of the screen height.
-       (vh = "viewport height" - the visible area of the browser window)
-
-       "display: grid; grid-template-columns: 1fr 1fr" divides the
-       hero into two equal columns side by side:
-         - Left column  : dark teal, shows name and stats
-         - Right column : warm cream, shows role list and button
-    ============================================================ */
+    /* HERO */
     #hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;   /* Two equal columns */
+      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
     }
 
-    /* LEFT panel of the hero section */
     .hero-left {
       background: var(--teal);
       display: flex;
-      flex-direction: column;      /* Stack children vertically (top to bottom) */
-      justify-content: flex-end;   /* Push all content to the bottom of the panel */
-      padding: 8rem 4rem 5rem;     /* Large top padding so content clears the fixed nav */
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 8rem 4rem 5rem;
       position: relative;
       overflow: hidden;
     }
 
-    /* Decorative large circle in the top-right corner of the left panel.
-       "::before" is a CSS pseudo-element - it adds visual decoration
-       without adding any extra HTML code to the file. */
     .hero-left::before {
       content: '';
       position: absolute;
-      top: -80px; right: -80px;           /* Partially off-screen for a cropped circle look */
-      width: 360px; height: 360px;
-      border-radius: 50%;                  /* Makes the square into a circle */
-      background: rgba(255,255,255,0.04);  /* Very subtle white — almost invisible */
+      top: -80px;
+      right: -80px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
     }
 
-    /* Second decorative circle - bottom-left corner, amber tint */
     .hero-left::after {
       content: '';
       position: absolute;
-      bottom: 60px; left: -60px;
-      width: 220px; height: 220px;
+      bottom: 60px;
+      left: -60px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      background: rgba(200,96,26,0.15);   /* Faint amber glow */
+      background: rgba(200, 96, 26, 0.15);
     }
 
-    /* Small uppercase label above the name
-       (e.g. "Curriculum & Capacity Development Professional") */
     .hero-eyebrow {
       font-size: 0.72rem;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);   /* Semi-transparent white */
+      color: rgba(255, 255, 255, 0.6);
       margin-bottom: 1.5rem;
-      opacity: 0;                      /* Starts invisible */
-      /* "animation: fadeUp" - defined in the Animations section below.
-         0.8s = duration, 0.2s = delay before starting, forwards = keep final state */
+      opacity: 0;
       animation: fadeUp 0.8s 0.2s forwards;
     }
 
-    /* The large name heading */
     .hero-name {
       font-family: 'Playfair Display', serif;
-      /* clamp(minimum, preferred, maximum) - font size scales with screen width
-         but never goes below 3rem or above 4.8rem. "vw" = viewport width units. */
-      font-size: clamp(3rem, 5vw, 4.8rem);
+      font-size: clamp(3rem, 5vw, 4.5rem);
       font-weight: 900;
-      line-height: 1.0;           /* Very tight line spacing for strong visual impact */
       color: #fff;
+      line-height: 1.05;
       letter-spacing: -0.03em;
       opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;  /* Appears 0.4 seconds after page loads */
+      animation: fadeUp 0.8s 0.4s forwards;
     }
 
-    /* The italic "Islam" part of the name - shown in amber */
     .hero-name em {
-      font-style: italic;
       color: var(--amber-light);
+      font-style: italic;
     }
 
-    /* One-line description below the name */
     .hero-tagline {
-      margin-top: 2rem;
-      font-size: 1rem;
-      font-weight: 300;          /* Light weight for a soft contrast with the bold name */
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
       line-height: 1.7;
-      color: rgba(255,255,255,0.75);
-      max-width: 340px;           /* Limits line length for comfortable reading */
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 380px;
       opacity: 0;
       animation: fadeUp 0.8s 0.6s forwards;
     }
 
-    /* Row of three key impact statistics */
     .hero-stats {
-      display: flex;
-      gap: 2.5rem;
       margin-top: 3rem;
+      display: flex;
+      gap: 3rem;
       opacity: 0;
       animation: fadeUp 0.8s 0.8s forwards;
     }
 
-    .stat-item { text-align: left; }
-
-    /* The large number (e.g. "1,950+") */
     .stat-number {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
@@ -428,79 +270,57 @@
       line-height: 1;
     }
 
-    /* Small label below the number (e.g. "Learners Impacted") */
     .stat-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+      font-size: 0.72rem;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-top: 0.2rem;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 0.4rem;
+      line-height: 1.4;
     }
 
-    /* RIGHT panel of the hero section */
     .hero-right {
       background: var(--cream);
       display: flex;
       flex-direction: column;
-      justify-content: center;    /* Vertically centre the content */
+      justify-content: flex-end;
       padding: 8rem 4rem 5rem;
       position: relative;
     }
 
-    /* A decorative pull-quote that appears in the upper corner of the right panel.
-       The actual quote text is written as the CSS "content" value below.
-       TO CHANGE THIS QUOTE: Edit the text between the single quotes in "content:". */
     .hero-right::before {
-      content: '"Education is the most powerful weapon which you can use to change the world."';
-      position: absolute;
-      top: 140px; right: 40px;
-      width: 180px;
+      content: '"';
       font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 0.75rem;
-      line-height: 1.6;
-      color: var(--muted);
-      border-left: 2px solid var(--amber);  /* Amber vertical bar makes it look like a blockquote */
-      padding-left: 0.75rem;
-      opacity: 0.6;
+      font-size: 20rem;
+      color: var(--border);
+      position: absolute;
+      top: 4rem;
+      left: 2rem;
+      line-height: 1;
+      pointer-events: none;
     }
 
-    /* The vertical list of professional focus areas */
     .hero-role-list {
       list-style: none;
+      position: relative;
+      z-index: 1;
       opacity: 0;
-      animation: fadeUp 0.8s 1s forwards;  /* Appears 1 second after page loads */
+      animation: fadeUp 0.8s 1s forwards;
     }
 
-    /* Each list item (e.g. "Curriculum Design & Training") */
     .hero-role-list li {
-      font-size: 0.78rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 0.7rem 0;
-      border-bottom: 1px solid var(--border);  /* Thin line separates each item */
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: color 0.2s;
+      padding: 1rem 0;
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      border-bottom: 1px solid var(--border);
     }
 
-    /* A small amber horizontal dash that appears before each list item */
-    .hero-role-list li::before {
-      content: '';
-      display: block;
-      width: 28px; height: 1.5px;
-      background: var(--amber);
-      flex-shrink: 0;   /* Prevents the dash from shrinking if space is tight */
+    .hero-role-list li:first-child {
+      border-top: 1px solid var(--border);
     }
 
-    /* Add a top border to the very first item in the list */
-    .hero-role-list li:first-child { border-top: 1px solid var(--border); }
-
-    /* The "Get in Touch" button at the bottom of the right panel */
     .hero-cta {
-      display: inline-flex;        /* Puts text and arrow icon in a row */
+      display: inline-flex;
       align-items: center;
       gap: 0.75rem;
       margin-top: 3rem;
@@ -511,39 +331,36 @@
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      text-decoration: none;        /* Removes the default underline from links */
+      text-decoration: none;
       transition: background 0.2s, transform 0.2s;
       opacity: 0;
       animation: fadeUp 0.8s 1.2s forwards;
     }
 
-    /* Button darkens and lifts slightly upward when hovered */
-    .hero-cta:hover { background: var(--ink); transform: translateY(-2px); }
+    .hero-cta:hover {
+      background: var(--ink);
+      transform: translateY(-2px);
+    }
 
-    /* The arrow icon inside the button slides right on hover */
-    .hero-cta svg { transition: transform 0.2s; }
-    .hero-cta:hover svg { transform: translateX(4px); }
+    .hero-cta svg {
+      transition: transform 0.2s;
+    }
 
+    .hero-cta:hover svg {
+      transform: translateX(4px);
+    }
 
-    /* ============================================================
-       SHARED SECTION STYLES
-       These apply to all main content sections (About, Experience,
-       Projects, Education, Contact) to keep them visually consistent.
-    ============================================================ */
+    /* SECTIONS */
+    section {
+      position: relative;
+    }
 
-    section { position: relative; }
-
-    /* Inner wrapper that centres content and limits its max width.
-       "max-width: 1100px" prevents text lines from becoming too long
-       on very wide monitors. "margin: 0 auto" centres it horizontally. */
     .section-inner {
       max-width: 1100px;
       margin: 0 auto;
       padding: 6rem 2rem;
     }
 
-    /* Small uppercase label above section headings.
-       The amber dash before it is created by the "::before" pseudo-element. */
     .section-label {
       font-size: 0.7rem;
       letter-spacing: 0.25em;
@@ -556,48 +373,43 @@
       gap: 0.75rem;
     }
 
-    /* The amber horizontal line that appears before each section label */
     .section-label::before {
       content: '';
       display: block;
-      width: 32px; height: 1.5px;
+      width: 32px;
+      height: 1.5px;
       background: var(--amber);
     }
 
-    /* Large section headings (e.g. "Professional Experience") */
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);  /* Scales responsively with screen width */
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 700;
       line-height: 1.15;
       color: var(--ink);
       letter-spacing: -0.02em;
     }
 
+    /* ABOUT */
+    #about {
+      background: var(--warm-white);
+    }
 
-    /* ============================================================
-       ABOUT SECTION
-    ============================================================ */
-    #about { background: var(--warm-white); }
-
-    /* Two-column grid: bio text (wider) on the left, skills panel on the right */
     .about-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;   /* Left column is 20% wider than right */
+      grid-template-columns: 1.2fr 1fr;
       gap: 6rem;
-      align-items: start;     /* Both columns start at the top, not vertically centred */
+      align-items: start;
       margin-top: 3.5rem;
     }
 
-    /* General body text paragraphs in the bio */
     .about-text p {
       font-size: 1.05rem;
-      line-height: 1.85;       /* Generous line height for comfortable reading */
+      line-height: 1.85;
       color: var(--ink-light);
       margin-bottom: 1.25rem;
     }
 
-    /* First paragraph gets a larger, serif style - makes it a strong opening */
     .about-text p:first-child {
       font-size: 1.2rem;
       font-family: 'DM Serif Display', serif;
@@ -605,38 +417,37 @@
       color: var(--ink);
     }
 
-    /* Dark teal panel containing the skills and competencies */
     .skills-panel {
       background: var(--teal);
       padding: 2.5rem;
       position: relative;
-      overflow: hidden;     /* Hides the decorative circle that extends beyond the edge */
+      overflow: hidden;
     }
 
-    /* Decorative amber circle in the bottom-right corner of the skills panel */
     .skills-panel::after {
       content: '';
       position: absolute;
-      bottom: -40px; right: -40px;     /* Partially hidden behind the panel edge */
-      width: 150px; height: 150px;
+      bottom: -40px;
+      right: -40px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      background: rgba(200,96,26,0.2);  /* Faint amber glow */
+      background: rgba(200, 96, 26, 0.2);
     }
 
-    /* "Core Competencies" heading inside the skills panel */
     .skills-panel h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: #fff;
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.15); /* Subtle white divider line */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    /* Each group of skills (e.g. all Instructional Design tags together) */
-    .skill-category { margin-bottom: 1.5rem; }
+    .skill-category {
+      margin-bottom: 1.5rem;
+    }
 
-    /* Category label above each group of skill tags */
     .skill-cat-label {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -645,90 +456,84 @@
       margin-bottom: 0.6rem;
     }
 
-    /* Wrapping container for skill pill tags */
     .skill-tags {
       display: flex;
-      flex-wrap: wrap;    /* Tags wrap to the next line if they do not fit in one row */
+      flex-wrap: wrap;
       gap: 0.4rem;
     }
 
-    /* Individual skill tag/pill (e.g. "SEL", "Curriculum Design") */
     .skill-tag {
       font-size: 0.72rem;
       padding: 0.3rem 0.7rem;
-      background: rgba(255,255,255,0.1);    /* Translucent white background */
-      color: rgba(255,255,255,0.85);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 2px;                    /* Very slightly rounded corners */
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
       transition: background 0.2s;
     }
 
-    /* Tags get slightly brighter when hovered */
-    .skill-tag:hover { background: rgba(255,255,255,0.2); }
+    .skill-tag:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
+    /* EXPERIENCE */
+    #experience {
+      background: var(--cream);
+    }
 
-    /* ============================================================
-       EXPERIENCE SECTION - Vertical timeline
-    ============================================================ */
-    #experience { background: var(--cream); }
-
-    /* The container for all job entries */
     .timeline {
       margin-top: 3.5rem;
       position: relative;
     }
 
-    /* The vertical line running down the left side of the timeline.
-       Created as a "::before" pseudo-element - no extra HTML needed. */
     .timeline::before {
       content: '';
       position: absolute;
-      left: 0; top: 0; bottom: 0;   /* Stretches from top to bottom of the container */
+      left: 0;
+      top: 0;
+      bottom: 0;
       width: 1.5px;
       background: var(--border);
     }
 
-    /* Each individual job/role entry on the timeline */
     .timeline-item {
-      padding-left: 2.5rem;    /* Pushed right to give room for the vertical line */
-      padding-bottom: 3.5rem;  /* Space between consecutive entries */
+      padding-left: 2.5rem;
+      padding-bottom: 3.5rem;
       position: relative;
-      /* Starts invisible and shifted 24px down - animated into view on scroll */
       opacity: 0;
       transform: translateY(24px);
       transition: all 0.6s ease;
     }
 
-    /* When JavaScript adds "visible" class, the item animates into its final position */
     .timeline-item.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Small amber dot on the vertical line that marks each job entry */
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -5px; top: 6px;       /* Positioned to sit centred on the vertical line */
-      width: 11px; height: 11px;
-      border-radius: 50%;           /* Makes it circular */
+      left: -5px;
+      top: 6px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
       background: var(--amber);
-      border: 2px solid var(--cream); /* Small ring around the dot for visual depth */
+      border: 2px solid var(--cream);
     }
 
-    /* Remove the bottom padding from the last entry */
-    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
 
-    /* Row containing the job title (left) and date range badge (right) */
     .job-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 1rem;
-      flex-wrap: wrap;    /* Wraps to next line on small screens */
+      flex-wrap: wrap;
     }
 
-    /* The job title (e.g. "Trainer", "Program Officer") */
     .job-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
@@ -736,7 +541,6 @@
       color: var(--ink);
     }
 
-    /* Organisation name shown below the job title */
     .job-org {
       font-size: 0.85rem;
       color: var(--amber);
@@ -744,7 +548,6 @@
       margin-top: 0.15rem;
     }
 
-    /* Date range shown in a small badge (e.g. "Oct 2025 - Present") */
     .job-period {
       font-size: 0.72rem;
       letter-spacing: 0.1em;
@@ -753,53 +556,45 @@
       background: var(--warm-white);
       padding: 0.3rem 0.75rem;
       border: 1px solid var(--border);
-      flex-shrink: 0;     /* Prevents the badge from shrinking on small screens */
+      flex-shrink: 0;
       height: fit-content;
     }
 
-    /* The bulleted list of responsibilities for each job */
     .job-desc {
       margin-top: 1rem;
-      list-style: none;   /* Remove default browser bullet points */
+      list-style: none;
     }
 
-    /* Each responsibility item */
     .job-desc li {
       font-size: 0.9rem;
       line-height: 1.75;
       color: var(--ink-light);
       padding: 0.3rem 0;
-      padding-left: 1rem;    /* Space for the custom arrow marker */
+      padding-left: 1rem;
       position: relative;
     }
 
-    /* Custom amber arrow that replaces the default bullet point */
     .job-desc li::before {
-      content: '>';          /* Arrow character */
+      content: '>';
       position: absolute;
       left: 0;
       color: var(--amber);
       font-size: 0.75rem;
     }
 
+    /* PROJECTS */
+    #projects {
+      background: var(--warm-white);
+    }
 
-    /* ============================================================
-       PROJECTS SECTION - Grid of project cards
-    ============================================================ */
-    #projects { background: var(--warm-white); }
-
-    /* Auto-filling grid layout for project cards.
-       "auto-fill" creates as many columns as fit in the available width.
-       "minmax(300px, 1fr)" = each column is at least 300px wide, up to equal share. */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5px;              /* Very thin gap between cards - reveals the border colour as grid lines */
+      gap: 1.5px;
       margin-top: 3.5rem;
-      background: var(--border); /* Shows through the thin gap to create grid lines */
+      background: var(--border);
     }
 
-    /* Individual project card */
     .project-card {
       background: var(--warm-white);
       padding: 2.5rem 2rem;
@@ -809,24 +604,28 @@
       transition: background 0.3s;
     }
 
-    /* Amber bar at the top of each card that grows from 0 to full width on hover.
-       Starts at width: 0 (invisible), grows to 100% on hover (see hover rule below). */
     .project-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       height: 3px;
-      width: 0;               /* Hidden - grows on hover */
+      width: 0;
       background: var(--amber);
       transition: width 0.4s ease;
     }
 
-    .project-card:hover { background: #F0EAE0; }        /* Card darkens slightly */
-    .project-card:hover::before { width: 100%; }         /* Top amber bar grows to full width */
+    .project-card:hover {
+      background: #F0EAE0;
+    }
 
-    /* Small amber square with an emoji icon at the top of each card */
+    .project-card:hover::before {
+      width: 100%;
+    }
+
     .project-icon {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       background: var(--amber);
       display: flex;
       align-items: center;
@@ -843,7 +642,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Organisation and year displayed in small uppercase text */
     .project-org {
       font-size: 0.72rem;
       letter-spacing: 0.12em;
@@ -858,24 +656,18 @@
       color: var(--ink-light);
     }
 
-    /* Impact/result line at the bottom of each card (shown in teal) */
     .project-impact {
       margin-top: 1rem;
       font-size: 0.78rem;
       color: var(--teal);
       font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
     }
 
+    /* EDUCATION */
+    #education {
+      background: var(--cream);
+    }
 
-    /* ============================================================
-       EDUCATION AND CERTIFICATIONS SECTION
-    ============================================================ */
-    #education { background: var(--cream); }
-
-    /* Two-column grid for degree cards */
     .edu-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -883,7 +675,6 @@
       margin-top: 3.5rem;
     }
 
-    /* Each degree card */
     .edu-card {
       background: var(--warm-white);
       border: 1px solid var(--border);
@@ -893,14 +684,11 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    /* Card lifts up and casts a subtle shadow when hovered */
     .edu-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
     }
 
-    /* Small teal label/badge at the top of each degree card
-       (e.g. "Postgraduate - Ongoing") */
     .edu-badge {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -921,14 +709,12 @@
       margin-bottom: 0.4rem;
     }
 
-    /* University/institution name in amber */
     .edu-inst {
       font-size: 0.85rem;
       color: var(--amber);
       font-weight: 500;
     }
 
-    /* Row of metadata details (year range, CGPA) */
     .edu-meta {
       margin-top: 0.75rem;
       font-size: 0.8rem;
@@ -938,7 +724,6 @@
       flex-wrap: wrap;
     }
 
-    /* Awards and honours shown in italic teal below the metadata */
     .edu-honours {
       margin-top: 1rem;
       font-size: 0.78rem;
@@ -946,20 +731,18 @@
       font-style: italic;
     }
 
-    /* Grid of certification cards - "grid-column: 1 / -1" makes it span all columns */
     .cert-list {
       margin-top: 2rem;
-      grid-column: 1 / -1;   /* Span the full width (both columns) */
+      grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1rem;
     }
 
-    /* Each certification card - has a thick amber left border accent */
     .cert-item {
       background: var(--warm-white);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--amber);    /* Thick amber left accent bar */
+      border-left: 3px solid var(--amber);
       padding: 1rem 1.25rem;
       font-size: 0.82rem;
       color: var(--ink-light);
@@ -967,10 +750,10 @@
       transition: border-color 0.2s;
     }
 
-    /* Left border changes from amber to teal on hover */
-    .cert-item:hover { border-left-color: var(--teal); }
+    .cert-item:hover {
+      border-left-color: var(--teal);
+    }
 
-    /* Issuing organisation shown in small muted text below the cert name */
     .cert-issuer {
       font-size: 0.68rem;
       color: var(--muted);
@@ -979,17 +762,11 @@
       text-transform: uppercase;
     }
 
+    /* CONTACT */
+    #contact {
+      background: var(--teal);
+    }
 
-    /* ============================================================
-       CONTACT SECTION - Dark teal background
-       ============================================================
-       The normal --ink and --amber colours for labels/titles are
-       overridden here because the dark teal background requires
-       lighter/brighter colours to remain readable.
-    ============================================================ */
-    #contact { background: var(--teal); }
-
-    /* Two-column grid: contact info on left, quote on right */
     #contact .section-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -997,62 +774,66 @@
       align-items: center;
     }
 
-    /* Override section label colour for this dark section */
-    #contact .section-label { color: var(--amber-light); }
-    #contact .section-label::before { background: var(--amber-light); }
+    #contact .section-label {
+      color: var(--amber-light);
+    }
 
-    /* Override section title colour for this dark section */
-    #contact .section-title { color: #fff; }
+    #contact .section-label::before {
+      background: var(--amber-light);
+    }
 
-    /* Descriptive paragraph below the section heading */
+    #contact .section-title {
+      color: #fff;
+    }
+
     .contact-sub {
       margin-top: 1rem;
       font-size: 1rem;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.7;
     }
 
-    /* Vertical list of contact method links */
     .contact-links {
       margin-top: 2.5rem;
       display: flex;
-      flex-direction: column;  /* Stack links vertically */
+      flex-direction: column;
       gap: 1rem;
     }
 
-    /* Each individual contact link row */
     .contact-link {
       display: flex;
       align-items: center;
       gap: 1rem;
-      color: rgba(255,255,255,0.85);
+      color: rgba(255, 255, 255, 0.85);
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s;
     }
 
-    .contact-link:hover { color: var(--amber-light); }
+    .contact-link:hover {
+      color: var(--amber-light);
+    }
 
-    /* Square icon box to the left of each contact method */
     .contact-link-icon {
-      width: 40px; height: 40px;
-      background: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1rem;
       flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       transition: background 0.2s;
     }
 
-    /* Icon box gets a warm amber tint when hovered */
-    .contact-link:hover .contact-link-icon { background: rgba(200,96,26,0.3); }
+    .contact-link:hover .contact-link-icon {
+      background: rgba(200, 96, 26, 0.3);
+    }
 
-    /* The quote box on the right side of the contact section */
     .contact-card {
-      background: rgba(255,255,255,0.05);   /* Barely-there translucent background */
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 2.5rem;
     }
 
@@ -1061,10 +842,9 @@
       font-style: italic;
       font-size: 1.15rem;
       line-height: 1.75;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.8);
     }
 
-    /* Attribution line below the quote */
     .contact-card-footer {
       margin-top: 1.5rem;
       font-size: 0.75rem;
@@ -1073,10 +853,7 @@
       color: var(--amber-light);
     }
 
-
-    /* ============================================================
-       FOOTER - Dark bar at the very bottom of the page
-    ============================================================ */
+    /* FOOTER */
     footer {
       background: var(--ink);
       padding: 2rem 4rem;
@@ -1089,63 +866,65 @@
 
     .footer-name {
       font-family: 'Playfair Display', serif;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
       font-size: 0.85rem;
     }
 
     .footer-note {
       font-size: 0.75rem;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255, 255, 255, 0.3);
     }
 
-
-    /* ============================================================
-       SCROLL PROGRESS BAR
-       ============================================================
-       A thin amber line at the very top of the browser window.
-       It starts at width: 0% and grows as the user scrolls down.
-       JavaScript (at the bottom of the file) controls the width.
-    ============================================================ */
+    /* SCROLL PROGRESS */
     .scroll-progress {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       height: 2px;
-      width: 0%;               /* Starts at zero - JavaScript updates this */
+      width: 0%;
       background: var(--amber);
-      z-index: 1001;           /* Must be above the nav (900) and texture (1000) */
+      z-index: 1001;
       transition: width 0.1s linear;
     }
 
+    /* LOADING STATE */
+    .loading-placeholder {
+      opacity: 0.4;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 1rem 0;
+    }
 
-    /* ============================================================
-       KEYFRAME ANIMATIONS
-       ============================================================
-       @keyframes defines a named animation with start (from) and
-       end (to) states. Elements reference these by name.
+    /* ERROR BANNER */
+    .data-error {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      padding: 1rem 1.5rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 0.85rem;
+      display: none;
+    }
 
-       "fadeUp" - used on hero section elements on page load.
-       Elements fade in (opacity 0 to 1) while sliding upward
-       from 20px below their final position.
-    ============================================================ */
+    .data-error.visible {
+      display: block;
+    }
+
+    /* ANIMATIONS */
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(20px);   /* 20px below final position */
+        transform: translateY(20px);
       }
+
       to {
         opacity: 1;
-        transform: translateY(0);      /* Final resting position */
+        transform: translateY(0);
       }
     }
 
-
-    /* ============================================================
-       SCROLL REVEAL - "Fade in as you scroll" effect
-       ============================================================
-       Elements with class "reveal" start invisible and slightly
-       shifted down. When scrolled into view, JavaScript adds
-       "visible" which triggers the CSS transition to full opacity.
-    ============================================================ */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -1157,147 +936,205 @@
       transform: translateY(0);
     }
 
-
-    /* ============================================================
-       RESPONSIVE DESIGN - MOBILE AND TABLET ADJUSTMENTS
-       ============================================================
-       "@media (max-width: 768px)" means: apply these rules ONLY
-       on screens that are 768 pixels wide or narrower.
-       This covers most phones and small tablets.
-
-       Inside this block we:
-       - Switch side-by-side layouts to stacked single columns
-       - Show the hamburger menu button and hide the link row
-       - Reduce padding so content fits on smaller screens
-    ============================================================ */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
 
-      /* Reduce horizontal padding on the nav for small screens */
-      nav { padding: 1rem 1.5rem; }
-      nav.scrolled { padding: 0.75rem 1.5rem; }
+      nav.scrolled {
+        padding: 0.75rem 1.5rem;
+      }
 
-      /* Show the hamburger button (was hidden on desktop) */
-      .nav-toggle { display: flex; }
+      .nav-toggle {
+        display: flex;
+      }
 
-      /* On mobile, the nav links become a slide-in side panel */
       .nav-links {
         position: fixed;
-        top: 0; right: 0;
-        width: 260px; height: 100vh;   /* Full screen height */
+        top: 0;
+        right: 0;
+        width: 260px;
+        height: 100vh;
         background: var(--ink);
-        flex-direction: column;         /* Stack links vertically */
+        flex-direction: column;
         justify-content: center;
         align-items: flex-start;
         padding: 3rem 2rem;
         gap: 2rem;
-        transform: translateX(100%);    /* Positioned off-screen to the right */
+        transform: translateX(100%);
         transition: transform 0.4s ease;
         z-index: 800;
       }
 
-      /* When JavaScript adds "open" class, the panel slides into view */
-      .nav-links.open { transform: translateX(0); }
+      .nav-links.open {
+        transform: translateX(0);
+      }
 
-      /* Link text is light on the dark mobile menu background */
-      .nav-links a { color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+      }
 
-      /* Stack the hero two-column layout into a single column */
       #hero {
-        grid-template-columns: 1fr;   /* Single column */
+        grid-template-columns: 1fr;
         min-height: auto;
       }
 
-      /* Adjust hero panel padding for mobile */
-      .hero-left { padding: 8rem 2rem 3rem; }
-      .hero-right { padding: 2rem 2rem 4rem; }
+      .hero-left {
+        padding: 8rem 2rem 3rem;
+      }
 
-      /* Hide the decorative pull-quote on mobile (too small/cramped) */
-      .hero-right::before { display: none; }
+      .hero-right {
+        padding: 2rem 2rem 4rem;
+      }
 
-      /* Tighten the stats row spacing */
-      .hero-stats { gap: 1.5rem; }
+      .hero-right::before {
+        display: none;
+      }
 
-      /* Stack the About two-column layout */
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-stats {
+        gap: 1.5rem;
+      }
 
-      /* Stack education degree cards */
-      .edu-grid { grid-template-columns: 1fr; }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
 
-      /* Stack the contact two-column layout */
-      #contact .section-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
 
-      /* Reduce footer padding */
-      footer { padding: 2rem 1.5rem; }
+      #contact .section-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
 
-      /* Reduce section inner padding on mobile */
-      .section-inner { padding: 4rem 1.5rem; }
+      footer {
+        padding: 2rem 1.5rem;
+      }
 
-      /* Stack project cards into a single column */
-      .projects-grid { grid-template-columns: 1fr; gap: 1px; }
+      .section-inner {
+        padding: 4rem 1.5rem;
+      }
 
-      /* Slightly smaller hero name on phones */
-      .hero-name { font-size: 2.8rem; }
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1px;
+      }
+
+      .hero-name {
+        font-size: 2.8rem;
+      }
     }
 
-    /* SMALL PHONES - 480px and below */
     @media (max-width: 480px) {
+      .hero-stats {
+        flex-wrap: wrap;
+      }
 
-      /* Allow stats to wrap to two rows if three do not fit in one line */
-      .hero-stats { flex-wrap: wrap; }
+      .job-header {
+        flex-direction: column;
+      }
 
-      /* Stack job title and date badge vertically in timeline entries */
-      .job-header { flex-direction: column; }
-      .job-period { align-self: flex-start; }
+      .job-period {
+        align-self: flex-start;
+      }
     }
-
   </style>
-  <!-- End of CSS styling section -->
-
 </head>
 
 <body>
+
   <!-- ============================================================
-       VISIBLE PAGE CONTENT STARTS HERE
+       ★ CONFIGURATION — EDIT THIS SECTION TO CONNECT YOUR SHEET ★
        ============================================================
-       HTML tags are like labelled containers:
-         <section> - a major page section
-         <div>     - a generic grouping box
-         <p>       - a paragraph of text
-         <h1>-<h6> - headings (h1 = most important, h6 = least)
-         <ul>/<li> - unordered list / list item
-         <a>       - a clickable hyperlink
-         <span>    - an inline wrapper (does not break to a new line)
-         <nav>     - the navigation bar
-         <footer>  - the footer at the bottom
-
-       class="..." connects an element to CSS styling rules.
-       id="..."   connects an element to JavaScript code.
-       Both must match exactly (case-sensitive) in CSS/JS to work.
+       Replace PASTE_YOUR_SHEET_ID_HERE with your actual Sheet ID.
+       Your Sheet ID is in the Google Sheets URL:
+       https://docs.google.com/spreadsheets/d/[THIS_PART]/edit
        ============================================================ -->
+  <script>
+    // ============================================================
+    // ★ YOUR GOOGLE SHEET CONFIGURATION ★
+    // ============================================================
+    // Replace with the link from File -> Share -> Publish to web (Ends in /pub)
+    const PUBLISHED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdFUwyTzx-Y8rnGFk-hKZOee9yxV16PoFSZSu-PgIksfKIEvzUutGsK5OZBwBzYZHiD73spTrqiWOi/pubhtml'; // e.g. https://docs.google.com/spreadsheets/d/e/2PACX-.../pub
 
+    // Tab GIDs — each tab has a unique ID in Google Sheets.
+    // To find a GID: click the tab in your sheet and look at the URL after #gid=
+    // TO ADD A NEW TAB: add its name and gid here, then write a loadXxx() function below.
+    const TABS = {
+      experience: 0,
+      education: 129136965,
+      certifications: 1487608978,
+      projects: 698301445,
+      skills: 1427243001,
+      stats: 34459276,
+      contact: 760753300
+    };
 
-  <!-- ============================================================
-       SCROLL PROGRESS BAR ELEMENT
-       This is the thin amber line at the top of the screen.
-       It has no visible content - its width is set by JavaScript.
-       id="scrollProgress" lets JavaScript find and update it.
-       ============================================================ -->
+    // Builds the direct Google Sheets CSV URL using the Published URL
+    function sheetUrl(gid) {
+      return `${PUBLISHED_URL}?output=csv&gid=${gid}`;
+    }
+
+    // CORS proxy is no longer needed because Google Sheets CSV export provides CORS headers natively.
+    // Fetch and parse a CSV tab directly from the sheet using its GID
+    async function fetchTab(gid) {
+      try {
+        const res = await fetch(sheetUrl(gid));
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        return parseCSV(text);
+      } catch (err) {
+        console.error(`Failed to load tab gid=${gid}:`, err);
+        return null;
+      }
+    }
+
+    // Simple CSV parser that handles quoted fields and commas inside quotes
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length < 2) return [];
+      const headers = parseCSVLine(lines[0]).map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+      return lines.slice(1).map(line => {
+        const values = parseCSVLine(line);
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = (values[i] || '').trim(); });
+        return obj;
+      }).filter(row => Object.values(row).some(v => v !== ''));
+    }
+
+    function parseCSVLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          if (inQuotes && line[i + 1] === '"') { current += '"'; i++; }
+          else { inQuotes = !inQuotes; }
+        } else if (ch === ',' && !inQuotes) {
+          result.push(current); current = '';
+        } else {
+          current += ch;
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
+    // Escapes HTML to prevent XSS
+    function esc(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+
   <div class="scroll-progress" id="scrollProgress"></div>
 
-
-  <!-- ============================================================
-       NAVIGATION BAR
-       Fixed to the top of the screen at all times.
-       id="navbar" lets JavaScript add/remove the "scrolled" class.
-       ============================================================ -->
   <nav id="navbar">
-
-    <!-- Logo: Your name in the top-left corner. Clicking it scrolls to the top. -->
     <a href="#hero" class="nav-logo">Syful Islam</a>
-
-    <!-- Navigation links list.
-         Each href="#section-id" jumps smoothly to that section on click.
-         id="navLinks" lets JavaScript open/close it on mobile. -->
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -1305,88 +1142,29 @@
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-
-    <!-- Hamburger menu button (three horizontal lines).
-         Only visible on mobile. Clicking it opens/closes the nav links.
-         id="navToggle" lets JavaScript attach a click event to it.
-         aria-label helps screen readers describe the button's purpose. -->
     <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
-      <span></span>   <!-- Line 1 of the hamburger icon -->
-      <span></span>   <!-- Line 2 of the hamburger icon -->
-      <span></span>   <!-- Line 3 of the hamburger icon -->
+      <span></span><span></span><span></span>
     </div>
-
   </nav>
-  <!-- End of navigation bar -->
 
-
-  <!-- ============================================================
-       HERO SECTION - The first full-screen view when the page loads
-       ============================================================
-       Divided into two side-by-side panels:
-         - .hero-left  : Teal background, name + stats
-         - .hero-right : Cream background, role list + button
-
-       Note on HTML special characters:
-         &amp; = the "&" symbol (& has a special meaning in HTML)
-         &lt;  = the "<" symbol
-         &gt;  = the ">" symbol
-       Always use these codes when you want to display these characters.
-       ============================================================ -->
+  <!-- HERO SECTION — stats and roles load from Google Sheets -->
   <section id="hero">
-
-    <!-- LEFT PANEL: dark teal background with name, tagline, and stats -->
     <div class="hero-left">
-
-      <!-- Small label text above the name - describes the professional role -->
       <p class="hero-eyebrow">Curriculum &amp; Capacity Development Professional</p>
-
-      <!-- The large name heading.
-           <br> forces a line break - "Islam" appears on its own line.
-           <em> wraps "Islam" to make it italic and amber-coloured (via CSS). -->
       <h1 class="hero-name">Md Syful<br><em>Islam</em></h1>
-
-      <!-- One-sentence professional tagline -->
       <p class="hero-tagline">
         Designing child-centred, play- and SEL-informed learning approaches
         across NGO, INGO, and EdTech contexts in Bangladesh.
       </p>
-
-      <!-- Three key impact statistics displayed in a horizontal row -->
-      <div class="hero-stats">
-
-        <!-- Stat 1: Learners reached -->
+      <!-- Stats loaded dynamically from the Stats tab -->
+      <div class="hero-stats" id="heroStats">
         <div class="stat-item">
-          <div class="stat-number">1,950+</div>
-          <div class="stat-label">Learners<br>Impacted</div>
+          <div class="stat-number">…</div>
+          <div class="stat-label">Loading</div>
         </div>
-
-        <!-- Stat 2: Community members reached -->
-        <div class="stat-item">
-          <div class="stat-number">5,500+</div>
-          <div class="stat-label">Community<br>Members</div>
-        </div>
-
-        <!-- Stat 3: Years of experience -->
-        <div class="stat-item">
-          <div class="stat-number">6+</div>
-          <div class="stat-label">Years<br>Experience</div>
-        </div>
-
       </div>
-      <!-- End of stats row -->
-
     </div>
-    <!-- End of hero left panel -->
-
-
-    <!-- RIGHT PANEL: cream background with list of specialisations and CTA button -->
     <div class="hero-right">
-
-      <!-- List of professional focus areas / expertise areas.
-           TO EDIT: change any text between <li> and </li> tags.
-           TO ADD: copy one <li>...</li> line and change the text.
-           TO REMOVE: delete an entire <li>...</li> line. -->
       <ul class="hero-role-list">
         <li>Curriculum Design &amp; Training</li>
         <li>Social-Emotional Learning (SEL)</li>
@@ -1396,595 +1174,126 @@
         <li>Monitoring, Evaluation &amp; Learning</li>
         <li>AI Literacy &amp; EdTech Innovation</li>
       </ul>
-
-      <!-- Call-to-action button that links to the contact section.
-           The SVG inside is an arrow icon drawn with code (no image file needed).
-           aria-hidden="true" hides it from screen readers since it is decorative. -->
       <a href="#contact" class="hero-cta">
         Get in Touch
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
       </a>
-
     </div>
-    <!-- End of hero right panel -->
-
   </section>
-  <!-- End of hero section -->
 
-
-  <!-- ============================================================
-       ABOUT SECTION - Personal biography and core skills
-       ============================================================
-       "reveal" class: elements start invisible and fade in as
-       the user scrolls down to them. JavaScript handles this.
-
-       TO EDIT YOUR BIO: Change the text inside the <p>...</p> tags.
-       TO EDIT SKILLS: Find the skill-tag items and change their text.
-       ============================================================ -->
+  <!-- ABOUT SECTION — static bio, dynamic skills -->
   <section id="about">
     <div class="section-inner">
-
-      <!-- Section header -->
       <p class="section-label reveal">Profile</p>
       <h2 class="section-title reveal">
         Building Bridges Between<br>
-        <!-- "style=" allows inline CSS - here it overrides the heading colour and font -->
         <em style="font-family:'Playfair Display',serif; color:var(--teal)">People &amp; Learning</em>
       </h2>
-
-      <!-- Two-column layout grid: bio on the left, skills on the right -->
       <div class="about-grid">
-
-        <!-- LEFT: Biography text paragraphs -->
-        <!-- TO EDIT: change the text between any <p>...</p> tag pair -->
         <div class="about-text reveal">
-          <p>I am a curriculum and capacity development professional with over 6 years of experience designing and strengthening learning systems in low-resource urban settings across Bangladesh.</p>
-
-          <p>My work is rooted in evidence — from baseline assessments and field observation to feedback loops grounded in behavioural science. I have led training initiatives for government and NGO teachers, community volunteers, and literacy facilitators, always keeping learner wellbeing at the centre of every design decision.</p>
-
-          <p>Alongside education work, I bring a strong research background in physics and AI — including deep learning model development and Python-based applications — which informs how I approach data, systems, and technology in programme design.</p>
-
-          <p>I am also the founder of Helping Hand Organization, a community-driven initiative providing scholarships to 20–30 students annually in Barishal since 2018.</p>
+          <p>I am a curriculum and capacity development professional with over 6 years of experience designing and
+            strengthening learning systems in low-resource urban settings across Bangladesh.</p>
+          <p>My work is rooted in evidence — from baseline assessments and field observation to feedback loops grounded
+            in behavioural science. I have led training initiatives for government and NGO teachers, community
+            volunteers, and literacy facilitators, always keeping learner wellbeing at the centre of every design
+            decision.</p>
+          <p>Alongside education work, I bring a strong research background in physics and AI — including deep learning
+            model development and Python-based applications — which informs how I approach data, systems, and technology
+            in programme design.</p>
+          <p>I am also the founder of Helping Hand Organization, a community-driven initiative providing scholarships to
+            20–30 students annually in Barishal since 2018.</p>
         </div>
-
-        <!-- RIGHT: Skills panel with categorised skill tags -->
-        <!-- TO ADD A SKILL: copy <span class="skill-tag">...</span> and change the text -->
-        <!-- TO ADD A CATEGORY: copy a full .skill-category block and update label + tags -->
         <div class="skills-panel reveal">
           <h3>Core Competencies</h3>
-
-          <!-- Category 1: Instructional Design skills -->
-          <div class="skill-category">
-            <p class="skill-cat-label">Instructional Design</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Curriculum Design</span>
-              <span class="skill-tag">Training Facilitation</span>
-              <span class="skill-tag">SEL</span>
-              <span class="skill-tag">Play-Based Pedagogy</span>
-              <span class="skill-tag">Trauma-Sensitive</span>
-              <span class="skill-tag">Assessment Design</span>
-            </div>
+          <!-- Skills loaded dynamically from the Skills tab -->
+          <div id="skillsContainer">
+            <p class="loading-placeholder">Loading skills…</p>
           </div>
-
-          <!-- Category 2: Programme management and monitoring skills -->
-          <div class="skill-category">
-            <p class="skill-cat-label">Programme &amp; M&amp;E</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Design Thinking</span>
-              <span class="skill-tag">Log Frame</span>
-              <span class="skill-tag">IPTT</span>
-              <span class="skill-tag">Impact Analysis</span>
-              <span class="skill-tag">Systems Mapping</span>
-            </div>
-          </div>
-
-          <!-- Category 3: Community and safeguarding skills -->
-          <div class="skill-category">
-            <p class="skill-cat-label">Community &amp; Safeguarding</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Child Protection</span>
-              <span class="skill-tag">PSEA</span>
-              <span class="skill-tag">Stakeholder Liaison</span>
-              <span class="skill-tag">Beneficiary Mapping</span>
-            </div>
-          </div>
-
-          <!-- Category 4: Technology skills -->
-          <div class="skill-category">
-            <p class="skill-cat-label">Technology</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">Prompt Engineering</span>
-              <span class="skill-tag">AI Literacy</span>
-              <span class="skill-tag">Ethical AI</span>
-            </div>
-          </div>
-
         </div>
-        <!-- End of skills panel -->
-
       </div>
-      <!-- End of about two-column grid -->
-
     </div>
   </section>
-  <!-- End of about section -->
 
-
-  <!-- ============================================================
-       EXPERIENCE SECTION - Work history as a vertical timeline
-       ============================================================
-       Each job is a "timeline-item" div. Items animate into view
-       as the user scrolls down to them (handled by JavaScript).
-
-       TO ADD A NEW JOB:
-       1. Copy an entire <div class="timeline-item">...</div> block
-       2. Paste it at the appropriate position in the timeline
-       3. Update: job-title, job-org, job-period, and job-desc items
-       ============================================================ -->
+  <!-- EXPERIENCE SECTION — fully dynamic -->
   <section id="experience">
     <div class="section-inner">
-
-      <!-- Section header -->
       <p class="section-label reveal">Career History</p>
       <h2 class="section-title reveal">
         Professional<br>
         <em style="font-family:'Playfair Display',serif; color:var(--amber)">Experience</em>
       </h2>
-
-      <!-- Timeline container. The vertical line is drawn by CSS using ::before.
-           Job entries are listed with the most recent at the top. -->
-      <div class="timeline">
-
-
-        <!-- ======================================================
-             JOB ENTRY 1 - Most recent position
-             ====================================================== -->
-        <div class="timeline-item">
-          <!-- Header row: job title + organisation on the left, dates on the right -->
-          <div class="job-header">
-            <div>
-              <div class="job-title">Trainer</div>
-              <div class="job-org">BRAC · Sylhet Sadar</div>
-            </div>
-            <span class="job-period">Oct 2025 – Present</span>
-          </div>
-          <!-- Bullet list of key responsibilities and achievements -->
-          <ul class="job-desc">
-            <li>Led curriculum delivery for an AI Literacy programme across 4 institutions (3 TVET centres, 1 Madrasa), reaching 200+ learners through 135+ hours of structured training.</li>
-            <li>Designed and operationalized baseline–endline assessments, training observation tools, and tracking systems to monitor learning outcomes and programme quality.</li>
-            <li>Coordinated with Operations, Finance, and Procurement teams to support budget utilization and timely programme implementation.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 1 -->
-
-
-        <!-- ======================================================
-             JOB ENTRY 2
-             ====================================================== -->
-        <div class="timeline-item">
-          <div class="job-header">
-            <div>
-              <div class="job-title">Program Officer</div>
-              <div class="job-org">Shishuder Jonno, Manabik Sahajya Sangstha · Dhaka</div>
-            </div>
-            <span class="job-period">Feb 2025 – Oct 2025</span>
-          </div>
-          <ul class="job-desc">
-            <li>Facilitated 9-day capacity-building trainings for 85 government teachers, 20 NGO teachers, 14 literacy/numeracy facilitators, and 97 community volunteers on SEL, IEPs, Positive Discipline, and Child Protection.</li>
-            <li>Developed pedagogical guidelines for facilitators grounded in behavioural science and trauma-informed pedagogy, tailored to the Rayerbazar slum context.</li>
-            <li>Led adaptive intervention cycles for 705 out-of-school children, including assessment, unit plan, and lesson plan design with real-time feedback loops.</li>
-            <li>Maintained collaboration with Save the Children (donor), DPE, DPEO, and 2 Thana Education Offices for innovation scaling and policy alignment.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 2 -->
-
-
-        <!-- ======================================================
-             JOB ENTRY 3
-             ====================================================== -->
-        <div class="timeline-item">
-          <div class="job-header">
-            <div>
-              <div class="job-title">Assessment Designer</div>
-              <div class="job-org">Cholpori · Part-time</div>
-            </div>
-            <span class="job-period">Jan 2025 – Apr 2025</span>
-          </div>
-          <ul class="job-desc">
-            <li>Designed 90 differentiated worksheets aligned with the TaRL framework, promoting motivation, scaffolding, and cognitive accessibility for multigrade learners.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 3 -->
-
-
-        <!-- ======================================================
-             JOB ENTRY 4
-             ====================================================== -->
-        <div class="timeline-item">
-          <div class="job-header">
-            <div>
-              <div class="job-title">Teaching Fellow</div>
-              <div class="job-org">Teach for Bangladesh (TFB) · Dhaka</div>
-            </div>
-            <span class="job-period">Nov 2022 – Dec 2024</span>
-          </div>
-          <ul class="job-desc">
-            <li>Led action research and root-cause analysis to design behaviourally-informed, SEL-integrated math interventions for 115+ under-resourced students, achieving 1 year of academic growth and 78% average attendance.</li>
-            <li>Co-created 4 community-based social innovation projects on career awareness, climate education, and fire risk preparedness, engaging 400+ students and 5 government school teachers.</li>
-            <li>Designed and co-facilitated a Professional Development Workshop on Bridge Online Learning Divide (BOLD), impacting 78 first-year teaching fellows. Mentored 12 accepted fellows.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 4 -->
-
-
-        <!-- ======================================================
-             JOB ENTRY 5
-             ====================================================== -->
-        <div class="timeline-item">
-          <div class="job-header">
-            <div>
-              <div class="job-title">Junior Executive (Subject Matter Expert)</div>
-              <div class="job-org">Shikho · Remote</div>
-            </div>
-            <span class="job-period">Nov 2021 – Aug 2022</span>
-          </div>
-          <ul class="job-desc">
-            <li>Collaborated with design and animation teams to develop 55+ learner-centred animated science lesson prototypes, translating complex physics concepts for digital learning platforms.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 5 -->
-
-
-        <!-- ======================================================
-             JOB ENTRY 6
-             ====================================================== -->
-        <div class="timeline-item">
-          <div class="job-header">
-            <div>
-              <div class="job-title">Research Assistant</div>
-              <div class="job-org">North South University · Remote</div>
-            </div>
-            <span class="job-period">Mar 2021 – Mar 2022</span>
-          </div>
-          <ul class="job-desc">
-            <li>Trained a Detectron2 Transformer AI model and developed a Python-based web application to detect cellular toxicity from fluorescence images.</li>
-            <li>Conducted literature reviews, data annotation and quantitative analysis supporting publication-quality research.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 6 -->
-
-
-        <!-- ======================================================
-             JOB ENTRY 7 - Earliest / furthest back in time
-             ====================================================== -->
-        <div class="timeline-item">
-          <div class="job-header">
-            <div>
-              <div class="job-title">Research Student</div>
-              <div class="job-org">SUST Research Centre</div>
-            </div>
-            <span class="job-period">Jun 2019 – May 2021</span>
-          </div>
-          <ul class="job-desc">
-            <li>Wrote simulation scripts, analyzed data, and conducted literature reviews contributing to quantitative research design.</li>
-            <li>Achieved 3 poster presentations at international physics conferences, including 1 Best Poster Presentation award.</li>
-          </ul>
-        </div>
-        <!-- End of job entry 7 -->
-
-
+      <div class="data-error" id="experienceError">
+        ⚠ Could not load experience data. Please check your Google Sheet is published and the Sheet ID is correct.
       </div>
-      <!-- End of timeline container -->
-
+      <div class="timeline" id="experienceTimeline">
+        <div class="timeline-item visible">
+          <p class="loading-placeholder">Loading experience…</p>
+        </div>
+      </div>
     </div>
   </section>
-  <!-- End of experience section -->
 
-
-  <!-- ============================================================
-       PROJECTS SECTION - Social innovation and research projects
-       ============================================================
-       Projects are displayed as cards in a responsive grid.
-
-       TO ADD A NEW PROJECT:
-       1. Copy an entire <div class="project-card">...</div> block
-       2. Paste it inside the .projects-grid div
-       3. Update: project-icon emoji, project-title, project-org,
-          project-desc text, and project-impact text
-       ============================================================ -->
+  <!-- PROJECTS SECTION — fully dynamic -->
   <section id="projects">
     <div class="section-inner">
-
-      <!-- Section header -->
       <p class="section-label reveal">Impact Work</p>
       <h2 class="section-title reveal">
         Social Innovation<br>
         <em style="font-family:'Playfair Display',serif; color:var(--teal)">Projects</em>
       </h2>
-
-      <!-- Cards grid - automatically adjusts the number of columns based on screen width -->
-      <div class="projects-grid reveal">
-
-
-        <!-- ======================================================
-             PROJECT CARD 1
-             ====================================================== -->
-        <div class="project-card">
-          <!-- Emoji icon inside the amber square at the top of the card -->
-          <!-- TO CHANGE: replace the emoji with any other emoji character -->
-          <div class="project-icon">🚀</div>
-          <div class="project-title">Altlearn — The Missing Pieces</div>
-          <div class="project-org">Teach For Bangladesh · 2024 – Present</div>
-          <p class="project-desc">Co-created a career awareness project for low-income adolescents and parents, introducing Career Informed Pedagogy (CIP) to equip learners with career preparedness skills and mindset.</p>
-          <!-- Star symbol followed by key outcomes and recognition -->
-          <p class="project-impact">★ Selected top 19 capstone projects in TFB 2024 · Teach For All Global STEM &amp; Leadership Challenge · 200+ students impacted</p>
-        </div>
-
-
-        <!-- ======================================================
-             PROJECT CARD 2
-             ====================================================== -->
-        <div class="project-card">
-          <div class="project-icon">🎓</div>
-          <div class="project-title">Community Driven Scholarship</div>
-          <div class="project-org">Helping Hand Organization · Barishal · 2018 – Present</div>
-          <p class="project-desc">Founded and managed a scholarship programme that sponsors 20–30 students annually. Built a robust funding system, transparent reporting process, and clear beneficiary selection rubrics.</p>
-          <p class="project-impact">★ Ongoing since 2018 · 100+ students supported to date</p>
-        </div>
-
-
-        <!-- ======================================================
-             PROJECT CARD 3
-             ====================================================== -->
-        <div class="project-card">
-          <div class="project-icon">🏛️</div>
-          <div class="project-title">Shaheed Minar School Improvement</div>
-          <div class="project-org">Helping Hand Organization · Barishal · 2023</div>
-          <p class="project-desc">Led end-to-end design and implementation of a school improvement initiative. Conducted user needs assessment, secured BDT 120,000 through donor engagement, and coordinated cross-sector collaboration.</p>
-          <p class="project-impact">★ 1,000+ students across 2 schools · 5,000+ community members engaged annually</p>
-        </div>
-
-
-        <!-- ======================================================
-             PROJECT CARD 4
-             ====================================================== -->
-        <div class="project-card">
-          <div class="project-icon">🌍</div>
-          <div class="project-title">Climate Education Leadership</div>
-          <div class="project-org">Teach For Bangladesh · SDG 3, 6, 13 · 2023</div>
-          <p class="project-desc">Designed and facilitated a community-based climate education initiative, engaging students and local stakeholders to build environmental leadership capacity.</p>
-          <p class="project-impact">★ Linked to SDGs 3, 6, and 13 · Student-led action outcomes</p>
-        </div>
-
-
-        <!-- ======================================================
-             PROJECT CARD 5
-             ====================================================== -->
-        <div class="project-card">
-          <div class="project-icon">🔥</div>
-          <div class="project-title">Fire Safety &amp; Disaster Risk Reduction</div>
-          <div class="project-org">Teach For Bangladesh · SDG 13 · 2024</div>
-          <p class="project-desc">Co-designed a community-level fire risk preparedness programme engaging students, parents, and teachers in safety awareness and preparedness skills.</p>
-          <p class="project-impact">★ School and community-wide safety awareness</p>
-        </div>
-
-
-        <!-- ======================================================
-             PROJECT CARD 6
-             ====================================================== -->
-        <div class="project-card">
-          <div class="project-icon">🧬</div>
-          <div class="project-title">AI-Powered Cellular Toxicity Detector</div>
-          <div class="project-org">North South University · 2021–2022</div>
-          <p class="project-desc">Developed a deep learning-powered Python web app trained on fluorescence images using Detectron2 Transformer to detect cellular toxicity, supporting cutting-edge biomedical research.</p>
-          <p class="project-impact">★ 1 deployed deep learning web application</p>
-        </div>
-
-
+      <div class="data-error" id="projectsError">
+        ⚠ Could not load projects data. Please check your Google Sheet is published and the Sheet ID is correct.
       </div>
-      <!-- End of projects grid -->
-
+      <div class="projects-grid reveal" id="projectsGrid">
+        <div class="project-card">
+          <p class="loading-placeholder">Loading projects…</p>
+        </div>
+      </div>
     </div>
   </section>
-  <!-- End of projects section -->
 
-
-  <!-- ============================================================
-       EDUCATION AND CERTIFICATIONS SECTION
-       ============================================================
-       Two degree cards side by side, followed by a full-width
-       row of certification cards below them.
-
-       TO EDIT A DEGREE: find the edu-card block and update the text.
-       TO ADD A CERTIFICATION: copy a cert-item block and update it.
-       ============================================================ -->
+  <!-- EDUCATION & CERTIFICATIONS — fully dynamic -->
   <section id="education">
     <div class="section-inner">
-
-      <!-- Section header -->
       <p class="section-label reveal">Academic Background</p>
       <h2 class="section-title reveal">
         Education &amp;<br>
         <em style="font-family:'Playfair Display',serif; color:var(--amber)">Certifications</em>
       </h2>
-
-      <!-- Grid containing degree cards (2 columns) and cert cards (full width) -->
-      <div class="edu-grid reveal">
-
-        <!-- ======================================================
-             DEGREE CARD 1 - Most recent
-             ====================================================== -->
-        <div class="edu-card">
-          <!-- Small coloured badge at the top of the card -->
-          <span class="edu-badge">Postgraduate · Ongoing</span>
-          <div class="edu-degree">MEd in Educational Leadership &amp; School Improvement</div>
-          <div class="edu-inst">BRAC University, Dhaka</div>
-          <!-- Year range and academic score -->
-          <div class="edu-meta">
-            <span>Jul 2023 – Present</span>
-            <span>CGPA: 3.57 / 4.00</span>
-          </div>
-          <p class="edu-honours">Thesis Ongoing</p>
-        </div>
-
-
-        <!-- ======================================================
-             DEGREE CARD 2 - Earlier degree
-             ====================================================== -->
-        <div class="edu-card">
-          <span class="edu-badge">Undergraduate</span>
-          <div class="edu-degree">BSc in Physics</div>
-          <div class="edu-inst">Shahjalal University of Science and Technology, Sylhet</div>
-          <div class="edu-meta">
-            <span>Dec 2015 – Jan 2020</span>
-            <span>CGPA: 3.17 / 4.00</span>
-          </div>
-          <!-- Awards and distinctions shown in italic teal text -->
-          <p class="edu-honours">
-            🏆 Champion – SUST Physics Competition 2019<br>
-            🥉 Bronze Medal – University Physics Competition 2017
-          </p>
-        </div>
-
-
-        <!-- ======================================================
-             CERTIFICATIONS - Full-width grid below degree cards
-             "cert-list" spans both columns via CSS grid settings.
-             TO ADD: copy one cert-item div and update the text.
-             ====================================================== -->
-        <div class="cert-list">
-
-          <!-- Each cert-item shows: certification name + issuing organisation -->
-
-          <div class="cert-item">
-            Teacher Coaching as Collective Leadership
-            <div class="cert-issuer">Teach For All</div>
-          </div>
-
-          <div class="cert-item">
-            Training &amp; Development for Managers
-            <div class="cert-issuer">Humanitarian Leadership Academy · Kaya</div>
-          </div>
-
-          <div class="cert-item">
-            IRC Healing Classroom Basic Training
-            <div class="cert-issuer">International Rescue Committee</div>
-          </div>
-
-          <div class="cert-item">
-            Safe Spaces, Strong Minds: Trauma-Sensitive Teaching
-            <div class="cert-issuer">Teach For All</div>
-          </div>
-
-          <div class="cert-item">
-            Introduction to Socio-Emotional Learning
-            <div class="cert-issuer">CASEL</div>
-          </div>
-
-          <div class="cert-item">
-            Media &amp; Information Literacy for Adult Educators
-            <div class="cert-issuer">UNESCO</div>
-          </div>
-
-        </div>
-        <!-- End of certifications list -->
-
+      <div class="data-error" id="educationError">
+        ⚠ Could not load education data. Please check your Google Sheet is published and the Sheet ID is correct.
       </div>
-      <!-- End of edu-grid -->
-
+      <div class="edu-grid reveal" id="eduGrid">
+        <p class="loading-placeholder">Loading education…</p>
+      </div>
     </div>
   </section>
-  <!-- End of education section -->
 
-
-  <!-- ============================================================
-       CONTACT SECTION - Dark teal background
-       ============================================================
-       Two columns: contact info (left) + inspirational quote (right)
-
-       TO UPDATE CONTACT DETAILS:
-       - Email: change the href="mailto:..." value AND the visible text
-       - Phone: change the href="tel:..." value AND the visible text
-       - LinkedIn: change the href="https://..." value AND visible text
-       - GitHub: same pattern as LinkedIn
-       ============================================================ -->
+  <!-- CONTACT SECTION — dynamic contact details -->
   <section id="contact">
     <div class="section-inner">
-
-      <!-- LEFT COLUMN: Heading and contact links -->
       <div>
         <p class="section-label">Contact</p>
         <h2 class="section-title">Let's Build<br>Something Together</h2>
-
-        <!-- Short descriptive text below the heading -->
         <p class="contact-sub">
           Whether it is curriculum design, programme partnership, research collaboration,
           or just a conversation about education innovation — I would love to hear from you.
         </p>
-
-        <!-- List of contact methods -->
-        <div class="contact-links">
-
-          <!-- Email: href="mailto:..." opens the device's email app when clicked -->
-          <a href="mailto:syfulakash@gmail.com" class="contact-link">
-            <span class="contact-link-icon">✉</span>
-            syfulakash@gmail.com
-          </a>
-
-          <!-- Phone: href="tel:..." prompts a phone call on mobile devices -->
-          <a href="tel:01683357296" class="contact-link">
-            <span class="contact-link-icon">📞</span>
-            01683357296
-          </a>
-
-          <!-- LinkedIn: target="_blank" opens in a new browser tab
-               rel="noopener" is a security best practice for external links -->
-          <a href="https://linkedin.com/in/syfulakash" target="_blank" rel="noopener" class="contact-link">
-            <span class="contact-link-icon">in</span>
-            linkedin.com/in/syfulakash
-          </a>
-
-          <!-- GitHub profile link -->
-          <!-- &lt; and &gt; are HTML codes for < and > characters -->
-          <a href="https://github.com/syful-akash" target="_blank" rel="noopener" class="contact-link">
-            <span class="contact-link-icon">&lt;/&gt;</span>
-            github.com/syful-akash
-          </a>
-
-          <!-- Location - not clickable, just informational
-               The href="#" prevents any navigation; it is just for styling -->
-          <a href="#" class="contact-link">
-            <span class="contact-link-icon">📍</span>
-            Sylhet, Bangladesh
-          </a>
-
+        <div class="contact-links" id="contactLinks">
+          <p class="loading-placeholder">Loading contact info…</p>
         </div>
-        <!-- End of contact links list -->
-
       </div>
-      <!-- End of left column -->
-
-      <!-- RIGHT COLUMN: A personal quote inside a subtle card -->
-      <!-- TO EDIT THE QUOTE: change the text inside the <p>...</p> tag -->
       <div class="contact-card">
-        <p>"Every child deserves an educator who believes in their potential and designs learning that meets them where they are."</p>
-        <!-- Attribution line below the quote -->
+        <p>"Every child deserves an educator who believes in their potential and designs learning that meets them where
+          they are."</p>
         <div class="contact-card-footer">Syful Islam · Educator &amp; Curriculum Designer</div>
       </div>
-
     </div>
   </section>
-  <!-- End of contact section -->
 
-
-  <!-- ============================================================
-       FOOTER - Simple dark bar at the very bottom of the page
-       ============================================================
-       TO EDIT: change the text inside footer-name and footer-note.
-       ============================================================ -->
   <footer>
     <div class="footer-name">Md Syful Islam · Portfolio</div>
     <div class="footer-note">Curriculum &amp; Capacity Development · Bangladesh</div>
@@ -1992,185 +1301,212 @@
 
 
   <!-- ============================================================
-       JAVASCRIPT - PAGE INTERACTIVITY AND BEHAVIOUR
-       ============================================================
-       JavaScript is a programming language that runs in the browser
-       AFTER the HTML and CSS have loaded. It makes the page respond
-       to user actions (scrolling, clicking, etc.).
-
-       Reading guide for non-coders:
-         const      = "create a named box to hold a value"
-         getElementById('id')   = "find the element with this ID"
-         addEventListener(event, function) = "when THIS happens, run THIS code"
-         classList.add('name')  = "add a CSS class (turns on those styles)"
-         classList.remove('name') = "remove a CSS class (turns off those styles)"
-         classList.toggle('name', condition) = "add class if condition is true, remove if false"
-
-       The four features below are independent of each other.
+       DATA LOADING SCRIPT
+       Fetches each tab from Google Sheets and renders the content
        ============================================================ -->
   <script>
 
-    /* ===========================================================
-       FEATURE 1: SCROLL PROGRESS BAR
-       ===========================================================
-       PURPOSE: The thin amber line at the very top of the screen
-                grows from left to right as you scroll down the page.
-
-       HOW IT WORKS:
-       1. Find the progress bar element using its ID
-       2. Listen for every scroll event on the window
-       3. Calculate what percentage of the page has been scrolled
-       4. Set the bar's width to that percentage
-
-       FORMULA:
-       percentScrolled = (howFarScrolled / totalScrollableHeight) * 100
-    =========================================================== */
-
-    // Step 1: Find the progress bar element in the HTML (by its ID)
-    const progressBar = document.getElementById('scrollProgress');
-
-    // Step 2: Listen for scroll events. The function runs every time the user scrolls.
-    window.addEventListener('scroll', function() {
-
-      // "scrollHeight" is the total height of the entire page (including off-screen content)
-      // "innerHeight" is the height of the visible browser window
-      // Their difference is the maximum scrollable distance
-      const totalScrollable = document.documentElement.scrollHeight - window.innerHeight;
-
-      // "scrollY" is how many pixels the user has scrolled from the top
-      const currentScrollPosition = window.scrollY;
-
-      // Calculate the scroll percentage (0 at top, 100 at bottom)
-      const percentScrolled = (currentScrollPosition / totalScrollable) * 100;
-
-      // Apply the percentage as the width of the amber progress bar
-      // Adding "%" makes it a proper CSS percentage value (e.g. "42%")
-      progressBar.style.width = percentScrolled + '%';
-    });
-
-
-    /* ===========================================================
-       FEATURE 2: SHRINKING NAVIGATION BAR ON SCROLL
-       ===========================================================
-       PURPOSE: The nav bar becomes slightly shorter when the user
-                scrolls down, giving more room to see the content.
-
-       HOW IT WORKS:
-       - Find the nav element by its ID
-       - On every scroll event, check if the user has scrolled
-         more than 50 pixels from the top
-       - If YES: add the "scrolled" CSS class to the nav
-                 (the CSS for nav.scrolled reduces its padding)
-       - If NO: remove the "scrolled" CSS class
-                (padding returns to full size)
-    =========================================================== */
-
-    // Find the navigation bar element
-    const navbar = document.getElementById('navbar');
-
-    window.addEventListener('scroll', function() {
-      // classList.toggle(class, condition):
-      // - Adds the class if condition is TRUE
-      // - Removes the class if condition is FALSE
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-      // "window.scrollY > 50" is true when scrolled more than 50 pixels
-    });
-
-
-    /* ===========================================================
-       FEATURE 3: MOBILE HAMBURGER MENU TOGGLE
-       ===========================================================
-       PURPOSE: On small screens, the navigation links are hidden
-                off-screen. The hamburger button (3 lines) slides
-                them in from the right side. Clicking again hides them.
-
-       HOW IT WORKS:
-       - Find the hamburger button and the nav links list
-       - When the button is clicked, toggle the "open" class on the links
-       - The CSS slides the panel in when "open" is present, out when not
-       - Also close the menu when any link inside it is clicked
-    =========================================================== */
-
-    // Find the hamburger button element
-    const navToggle = document.getElementById('navToggle');
-
-    // Find the navigation links list element
-    const navLinks = document.getElementById('navLinks');
-
-    // When the hamburger button is clicked, open or close the mobile menu
-    navToggle.addEventListener('click', function() {
-      // toggle() adds "open" if it is not there, removes it if it is
-      navLinks.classList.toggle('open');
-    });
-
-    // When any navigation link inside the mobile menu is clicked,
-    // automatically close the menu (so the user is not left with it open)
-    navLinks.querySelectorAll('a').forEach(function(link) {
-      link.addEventListener('click', function() {
-        navLinks.classList.remove('open'); // Always close the menu after clicking a link
-      });
-    });
-
-
-    /* ===========================================================
-       FEATURE 4: SCROLL-TRIGGERED REVEAL ANIMATIONS
-       ===========================================================
-       PURPOSE: Section headings, cards, and other elements start
-                invisible. As the user scrolls down and they enter
-                the visible area of the screen, they smoothly fade
-                in and slide up to their final position.
-
-       HOW IT WORKS:
-       - We use the browser's "IntersectionObserver" API
-       - It efficiently watches multiple elements at once
-       - When an element enters the visible screen area ("intersects"),
-         the observer fires our callback function
-       - We then add the "visible" class to the element
-       - The CSS handles the smooth opacity + position transition
-
-       WHY IntersectionObserver AND NOT scroll events?
-       IntersectionObserver is more efficient. Running code on every
-       scroll event can slow down the page. IntersectionObserver only
-       fires when elements actually cross the screen boundary.
-
-       SETTINGS EXPLAINED:
-         threshold: 0.1     = Fire when 10% of the element is on screen
-         rootMargin: -40px  = Fire 40px before the element fully enters
-                              the bottom of the screen (slightly earlier trigger)
-    =========================================================== */
-
-    // Create the observer with settings and a callback function
-    const revealObserver = new IntersectionObserver(
-      function(entries) {
-        // "entries" is an array of elements that have changed visibility
-        entries.forEach(function(entry) {
-          // "isIntersecting" is true when the element is visible on screen
-          if (entry.isIntersecting) {
-            // Add "visible" class - this triggers the CSS fade-up animation
-            entry.target.classList.add('visible');
-            // Note: we do NOT remove "visible" when it scrolls away,
-            // so elements stay visible once they have appeared.
-          }
-        });
-      },
-      {
-        threshold: 0.1,                      // Trigger when 10% of the element is visible
-        rootMargin: '0px 0px -40px 0px'     // Fire slightly before fully entering the screen
+    /* ── STATS (Hero Section) ────────────────────────────────── */
+    async function loadStats() {
+      const data = await fetchTab(TABS.stats);  // gid: 34459276
+      const container = document.getElementById('heroStats');
+      if (!data || data.length === 0) {
+        container.innerHTML = '<div class="stat-item"><div class="stat-number">6+</div><div class="stat-label">Years Experience</div></div>';
+        return;
       }
-    );
+      container.innerHTML = data.map(row => `
+        <div class="stat-item">
+          <div class="stat-number">${esc(row.number)}</div>
+          <div class="stat-label">${esc(row.label).replace(/\\n/g, '<br>')}</div>
+        </div>
+      `).join('');
+    }
 
-    // Find ALL elements with class "reveal" OR "timeline-item" on the page
-    // and register each one with the observer so it gets watched
-    document.querySelectorAll('.reveal, .timeline-item').forEach(function(element) {
-      revealObserver.observe(element); // Start watching this element
+    /* ── SKILLS (About Section) ──────────────────────────────── */
+    async function loadSkills() {
+      const data = await fetchTab(TABS.skills);
+      const container = document.getElementById('skillsContainer');
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p class="loading-placeholder">Skills unavailable.</p>';
+        return;
+      }
+      // Group skills by category
+      const grouped = {};
+      data.forEach(row => {
+        if (!row.category) return;
+        if (!grouped[row.category]) grouped[row.category] = [];
+        grouped[row.category].push(row.skill);
+      });
+      container.innerHTML = Object.entries(grouped).map(([cat, skills]) => `
+        <div class="skill-category">
+          <p class="skill-cat-label">${esc(cat)}</p>
+          <div class="skill-tags">
+            ${skills.map(s => `<span class="skill-tag">${esc(s)}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ── EXPERIENCE (Timeline) ───────────────────────────────── */
+    async function loadExperience() {
+      const data = await fetchTab(TABS.experience);
+      const container = document.getElementById('experienceTimeline');
+      const errorEl = document.getElementById('experienceError');
+      if (!data || data.length === 0) {
+        errorEl.classList.add('visible');
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = data.map(row => {
+        // bullets column: separate multiple bullets with a pipe | character in the sheet
+        const bullets = (row.bullets || '').split('|').filter(b => b.trim());
+        return `
+          <div class="timeline-item">
+            <div class="job-header">
+              <div>
+                <div class="job-title">${esc(row.title)}</div>
+                <div class="job-org">${esc(row.org)}</div>
+              </div>
+              <span class="job-period">${esc(row.period)}</span>
+            </div>
+            <ul class="job-desc">
+              ${bullets.map(b => `<li>${esc(b.trim())}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }).join('');
+      // Re-run scroll observer on new elements
+      container.querySelectorAll('.timeline-item').forEach(el => revealObserver.observe(el));
+    }
+
+    /* ── PROJECTS ────────────────────────────────────────────── */
+    async function loadProjects() {
+      const data = await fetchTab(TABS.projects);
+      const container = document.getElementById('projectsGrid');
+      const errorEl = document.getElementById('projectsError');
+      if (!data || data.length === 0) {
+        errorEl.classList.add('visible');
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = data.map(row => `
+        <div class="project-card">
+          <div class="project-icon">${esc(row.icon)}</div>
+          <div class="project-title">${esc(row.title)}</div>
+          <div class="project-org">${esc(row.org)}</div>
+          <p class="project-desc">${esc(row.description)}</p>
+          <p class="project-impact">★ ${esc(row.impact)}</p>
+        </div>
+      `).join('');
+    }
+
+    /* ── EDUCATION & CERTIFICATIONS ──────────────────────────── */
+    async function loadEducation() {
+      const eduData = await fetchTab(TABS.education);
+      const certData = await fetchTab(TABS.certifications);
+      const container = document.getElementById('eduGrid');
+      const errorEl = document.getElementById('educationError');
+
+      if ((!eduData || eduData.length === 0) && (!certData || certData.length === 0)) {
+        errorEl.classList.add('visible');
+        container.innerHTML = '';
+        return;
+      }
+
+      const eduHtml = (eduData || []).map(row => `
+        <div class="edu-card">
+          <span class="edu-badge">${esc(row.badge)}</span>
+          <div class="edu-degree">${esc(row.degree)}</div>
+          <div class="edu-inst">${esc(row.institution)}</div>
+          <div class="edu-meta">
+            <span>${esc(row.years)}</span>
+            ${row.grade ? `<span>${esc(row.grade)}</span>` : ''}
+          </div>
+          ${row.honours ? `<p class="edu-honours">${esc(row.honours)}</p>` : ''}
+        </div>
+      `).join('');
+
+      const certHtml = (certData && certData.length > 0) ? `
+        <div class="cert-list">
+          ${certData.map(row => `
+            <div class="cert-item">
+              ${esc(row.name)}
+              <div class="cert-issuer">${esc(row.issuer)}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : '';
+
+      container.innerHTML = eduHtml + certHtml;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────────── */
+    async function loadContact() {
+      const data = await fetchTab(TABS.contact);
+      const container = document.getElementById('contactLinks');
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p class="loading-placeholder">Contact info unavailable.</p>';
+        return;
+      }
+
+      // Map of key → icon and link prefix
+      const iconMap = {
+        email: { icon: '✉', prefix: 'mailto:' },
+        phone: { icon: '📞', prefix: 'tel:' },
+        linkedin: { icon: 'in', prefix: 'https://' },
+        github: { icon: '</>', prefix: 'https://' },
+        location: { icon: '📍', prefix: '#' }
+      };
+
+      container.innerHTML = data.map(row => {
+        const key = (row.key || '').toLowerCase();
+        const val = row.value || '';
+        const meta = iconMap[key] || { icon: '•', prefix: '' };
+        const isExternal = (key === 'linkedin' || key === 'github');
+        const href = (key === 'location') ? '#' : meta.prefix + val;
+        return `
+          <a href="${esc(href)}" class="contact-link" ${isExternal ? 'target="_blank" rel="noopener"' : ''}>
+            <span class="contact-link-icon">${meta.icon}</span>
+            ${esc(val)}
+          </a>
+        `;
+      }).join('');
+    }
+
+    /* ── SCROLL BEHAVIOUR ────────────────────────────────────── */
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (window.scrollY / total * 100) + '%';
     });
 
-  </script>
-  <!-- End of JavaScript section -->
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
 
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .timeline-item').forEach(el => revealObserver.observe(el));
+
+    /* ── LOAD EVERYTHING ON PAGE START ──────────────────────── */
+    // All GIDs are configured — load everything on page start
+    Promise.all([
+      loadStats(),
+      loadSkills(),
+      loadExperience(),
+      loadProjects(),
+      loadEducation(),
+      loadContact()
+    ]);
+  </script>
 
 </body>
-<!-- End of visible page content -->
 
 </html>
-<!-- End of the entire HTML document -->
