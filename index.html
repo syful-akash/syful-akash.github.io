@@ -249,7 +249,7 @@
     // ★ YOUR GOOGLE SHEET CONFIGURATION ★
     // Base published URL — the part before ?output=csv
     // ============================================================
-    const BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdFUwyTzx-Y8rnGFk-hKZOee9yxV16PoFSZSu-PgIksfKIEvzUutGsK5OZBwBzYZHiD73spTrqiWOi/pub?output=csv';
+    const BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdFUwyTzx-Y8rnGFk-hKZOee9yxV16PoFSZSu-PgIksfKIEvzUutGsK5OZBwBzYZHiD73spTrqiWOi/pub';
 
     // Tab GIDs — each tab has a unique ID in Google Sheets.
     // To find a GID: click the tab in your sheet and look at the URL after #gid=
@@ -269,27 +269,35 @@
       return `${BASE_URL}?output=csv&gid=${gid}`;
     }
 
-    // CORS proxy — sits between your browser and Google Sheets.
-    // Required because Google Sheets blocks direct browser fetch() requests.
-    // allorigins.win is a free, open-source proxy — no sign-up needed.
-    function proxiedUrl(gid) {
-      const target = encodeURIComponent(sheetUrl(gid));
-      return `https://api.allorigins.win/get?url=${target}`;
-    }
+    // CORS proxy list — tried in order until one succeeds.
+    // allorigins.win is unreliable; corsproxy.io and jsonp.afeld.me are fallbacks.
+    const PROXIES = [
+      // Proxy 1: corsproxy.io — prepend to URL, returns raw content
+      { build: (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`, parse: (r) => r.text() },
+      // Proxy 2: allorigins.win — wraps in JSON { contents: "..." }
+      { build: (url) => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, parse: async (r) => { const j = await r.json(); return j.contents; } },
+      // Proxy 3: thingproxy.freeboard.io
+      { build: (url) => `https://thingproxy.freeboard.io/fetch/${url}`, parse: (r) => r.text() },
+    ];
 
-    // Fetch and parse a CSV tab from the sheet using its GID
+    // Fetch and parse a CSV tab from the sheet using its GID.
+    // Tries each proxy in order until one succeeds.
     async function fetchTab(gid) {
-      try {
-        const res = await fetch(proxiedUrl(gid));
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        // allorigins wraps the response in { contents: "..." }
-        if (!json.contents) throw new Error('Empty response from proxy');
-        return parseCSV(json.contents);
-      } catch (err) {
-        console.error(`Failed to load tab gid=${gid}:`, err);
-        return null;
+      const url = sheetUrl(gid);
+      for (const proxy of PROXIES) {
+        try {
+          const res = await fetch(proxy.build(url));
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const text = await proxy.parse(res);
+          if (!text || text.length < 5) throw new Error('Empty response');
+          console.log(`Tab gid=${gid} loaded successfully.`);
+          return parseCSV(text);
+        } catch (err) {
+          console.warn(`Proxy failed for gid=${gid}:`, proxy.build(url), err.message);
+        }
       }
+      console.error(`All proxies failed for tab gid=${gid}`);
+      return null;
     }
 
     // Simple CSV parser that handles quoted fields and commas inside quotes
