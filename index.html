@@ -523,12 +523,14 @@
         container.innerHTML = '<p class="loading-placeholder">Skills unavailable.</p>';
         return;
       }
-      // Group skills by category
+      // Each row = one category. Skills are comma-separated in the skill/skills column.
       const grouped = {};
       data.forEach(row => {
         if (!row.category) return;
-        if (!grouped[row.category]) grouped[row.category] = [];
-        grouped[row.category].push(row.skill);
+        const skillValue = row.skill || row.skills || '';
+        // Split by comma, trim whitespace, remove empty entries
+        const skillList = skillValue.split(',').map(s => s.trim()).filter(s => s);
+        grouped[row.category].push(...skillList);
       });
       container.innerHTML = Object.entries(grouped).map(([cat, skills]) => `
         <div class="skill-category">
