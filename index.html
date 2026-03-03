@@ -530,6 +530,7 @@
         const skillValue = row.skill || row.skills || '';
         // Split by comma, trim whitespace, remove empty entries
         const skillList = skillValue.split(',').map(s => s.trim()).filter(s => s);
+        if (!grouped[row.category]) grouped[row.category] = [];
         grouped[row.category].push(...skillList);
       });
       container.innerHTML = Object.entries(grouped).map(([cat, skills]) => `
